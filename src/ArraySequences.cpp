@@ -37,11 +37,11 @@ int * find_sequences(int *arr, int len){
 	int diff;
 	int i;
 	bool flag;
-	int *res =(int*) malloc(sizeof(int) * 4);
+	int *res = (int*)malloc(sizeof(int) * 4);
 
-	if (arr == NULL)
+	if (arr == NULL || len == 0)
 		return NULL;
-	
+
 	diff = arr[0] - arr[1];
 
 	for (i = 1; i < len; i++){
@@ -54,8 +54,8 @@ int * find_sequences(int *arr, int len){
 
 	}
 
-	if (diff == arr[i - 1] - arr[i - 2])
+	if (diff == arr[i - 1] - arr[i - 2]){
 		res[0] = 0;
 	res[1] = i - 1;
-
+}
 }
