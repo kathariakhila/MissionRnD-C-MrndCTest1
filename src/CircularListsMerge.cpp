@@ -32,7 +32,129 @@ struct node{
 	int data;
 	struct node *next;
 };
+
+int length(struct node** head){
+
+	int len = 0;
+	struct node *curr = *head;
+	if (*head == NULL)
+		return 0;
+	else{
+		while (*head != curr->next){
+			curr = curr->next;
+			len++;
+		}
+		return len+1;
+	}
+}
+
 int merge_circularlists(struct node **head1, struct node **head2){
 	//Returns Length of merged Sorted circular SLL and also points *head1 to final SLL .
-	return -1;
+
+	int len1 = length(head1),len;
+	int len2 = length(head2);
+	struct node *curr1 = *head1;
+	struct node *curr2 = *head2;
+	struct node *prev = NULL, *temp = NULL;
+
+	if (*head1 == NULL && *head2 == NULL)
+		return -1;
+
+	else if (*head1 == NULL){
+		head1 = head2;
+		return len2;
+	}
+	else if (*head2 == NULL)
+		return len1;
+	else{
+
+		while (*head1 != curr1->next && *head2 != curr2->next){
+
+
+
+			if (curr1->data < curr2->data){
+				if (prev == NULL){
+					prev = temp = curr1;
+					curr1 = curr1->next;
+				}
+				else{
+					prev = prev->next;
+					curr1 = curr1->next;
+				}
+
+			}
+			else if (curr1->data > curr2->data){
+				if (prev == NULL){
+					prev =temp = curr2;
+					curr2 = curr2->next;
+					prev->next = curr1;
+					
+				}
+				else{
+					prev->next = curr2;
+					prev = prev->next;
+					curr2 = curr2->next;
+					prev->next = curr1;
+					
+					
+				}
+			}
+
+		}
+
+
+		if (*head2 == curr2->next || *head1 == curr1->next){
+			
+			if (curr1->data < curr2->data){
+				if (prev == NULL){
+					prev = temp = curr1;
+					curr1 = curr1->next;
+				}
+				else{
+					prev = prev->next;
+					curr1 = curr1->next;
+				}
+
+			}
+			else if (curr1->data > curr2->data){
+				if (prev == NULL){
+					prev = temp = curr2;
+					curr2 = curr2->next;
+					prev->next = curr1;
+
+				}
+				else{
+					prev->next = curr2;
+					prev = prev->next;
+					curr2 = curr2->next;
+					prev->next = curr1;
+					prev = prev->next;
+
+
+				}
+			}
+		}
+
+		while (*head2 != (curr2)->next){
+			(prev)->next = curr2;
+			(curr2) = (curr2)->next;
+			(prev) = (prev)->next;
+
+		
+		}
+
+		if (*head2 == (curr2)->next){
+			(prev)->next = curr2;
+			(curr2) = (curr2)->next;
+			(prev) = (prev)->next;
+
+		}
+
+		(prev)->next = temp;
+		*head1 = temp;
+		len = length(head1);
+		return len;
+
+	}
+
 }
